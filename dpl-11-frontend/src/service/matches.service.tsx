@@ -5,6 +5,10 @@ const MatchesDataService = {
     return http.get('/match');
   },
 
+  getPredictionDetailsById(id: number) {
+    return http.get(`/match/prediction/${id}`);
+  },
+
   get(id: number) {
     return http.get(`/match/${id}`);
   },

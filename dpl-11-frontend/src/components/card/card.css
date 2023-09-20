@@ -1,6 +1,6 @@
 .card {
   background-color: #fff;
-  height: 170px;
+  height: 212px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   padding: 10px;
@@ -88,6 +88,11 @@
 
 .place_section {
   margin: 4px 0;
+}
+
+.footer_btn {
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media screen and (max-width: 600px) {

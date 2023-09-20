@@ -8,9 +8,11 @@ import AddTeam from "../screens/teams/add-team";
 import Teams from "../screens/teams/teams";
 import Users from "../screens/users/users";
 import AddUser from "../screens/users/add-user";
+import Prediction from "../screens/prediction/prediction";
 
 const AuthRoutes = [
     <Route key="Dashboard" path="/dashboard" element={<AuthGuard component={<Dashboard />} />} />,
+    <Route key="Prediction" path="/dashboard/prediction/:id" element={<AuthGuard component={<Prediction />} />} />,
     <Route key="Match" path="/matches" element={<AuthGuard component={<Match />} />} />,
     <Route key="AddMatch" path="/match/add-match" element={<AuthGuard component={<AddMatch />} />} />,
     <Route key="EditMatch" path="/match/:id" element={<AuthGuard component={<AddMatch />} />} />,

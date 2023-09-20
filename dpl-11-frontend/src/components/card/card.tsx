@@ -2,9 +2,12 @@ import dayjs from "dayjs";
 import "./card.css"
 import { getTodayOrUpcoming } from "../../utils/util";
 import Countdown from "../../hooks/useCountdiwn";
+import { useNavigate } from "react-router";
+import { Button } from "@mui/material";
 
 const Card = (props: any) => {
   const { matchDetails } = props;
+  const navigate = useNavigate();
   const countDown = Countdown(matchDetails.date)
   const status = getTodayOrUpcoming(matchDetails.date)
   return (
@@ -32,6 +35,9 @@ const Card = (props: any) => {
           <span>{dayjs(matchDetails.date).format('h:mm A')}</span>
         </div>
         <div className="place_section">{matchDetails.venue}</div>
+      </div>
+      <div className="footer_btn">
+        <Button variant="contained" sx={{ fontSize: 10 }} color="success" onClick={() => navigate(`/dashboard/prediction/${matchDetails.id}`)}>Predicted</Button>
       </div>
     </div>
   )
