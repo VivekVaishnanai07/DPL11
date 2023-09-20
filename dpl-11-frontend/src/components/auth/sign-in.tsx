@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import UserDataService from '../../service/users.service';
-import { notificationConfig } from '../../utils/util';
+import { capitalizeAndChangeColor, notificationConfig } from '../../utils/util';
 
 const defaultTheme = createTheme();
 
@@ -26,6 +26,9 @@ function SingIn() {
         const user = response.data[0]
         if (user.password === password) {
           toast.success('You are successfully logged in', notificationConfig);
+          const profileAvatar: any = capitalizeAndChangeColor(user.first_name, user.last_name)
+          let profileAvatarString = JSON.stringify(profileAvatar)
+          localStorage.setItem("avatarProfile", profileAvatarString)
           let string = JSON.stringify(user)
           localStorage.setItem("isLogin", string)
           navigate('/dashboard');

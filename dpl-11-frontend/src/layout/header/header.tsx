@@ -1,5 +1,6 @@
-import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Fab } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -12,8 +13,6 @@ import * as React from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import './header.css';
-import { Fab } from '@mui/material';
-import { capitalizeAndChangeColor } from '../../utils/util';
 
 function Header() {
   const navigate = useNavigate();
@@ -21,10 +20,12 @@ function Header() {
   let pathName = pathname.replace("/", "").toLocaleUpperCase()
   const getData: any = localStorage.getItem('isLogin')
   let user = JSON.parse(getData)
-  let profileAvatar = capitalizeAndChangeColor(user.first_name, user.last_name)
+  let getProfileAvatar: any = localStorage.getItem('avatarProfile')
+  let profileAvatar = JSON.parse(getProfileAvatar)
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);

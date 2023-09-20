@@ -118,7 +118,7 @@ export default function AddMatch() {
               alignItems: 'center',
             }}
           >
-            <Box component="form" noValidate sx={{ mt: 3 }}>
+            <Box component="form" noValidate sx={{ marginTop: "40px !important", marginBottom: "40px !important" }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField

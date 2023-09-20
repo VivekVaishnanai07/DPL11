@@ -27,6 +27,7 @@ export default function AddTeam() {
     if (id !== "add-team") {
       TeamsDataService.get(id).then((res) => {
         const team = res.data[0]
+
         setTeamData({
           full_name: team.full_name,
           short_name: team.short_name,
@@ -63,7 +64,7 @@ export default function AddTeam() {
               alignItems: 'center',
             }}
           >
-            <Box component="form" noValidate sx={{ mt: 3 }}>
+            <Box component="form" noValidate sx={{ marginTop: "40px !important", marginBottom: "40px !important" }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
