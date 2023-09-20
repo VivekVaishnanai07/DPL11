@@ -92,6 +92,12 @@
   margin-right: 90px !important;
 }
 
+.profileAvatar {
+  font-family: 'Rubik', sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+}
+
 /* mobile view css */
 
 @media only screen and (max-width: 600px) {

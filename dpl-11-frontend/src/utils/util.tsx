@@ -9,6 +9,21 @@ export default axios.create({
   }
 });
 
+// create profile pic name first letter and background color
+export const capitalizeAndChangeColor = (firstName: string, lastName: string) => {
+  if (firstName && lastName) {
+    const capitalizedFirstName = firstName.charAt(0).toUpperCase()
+    const capitalizedLastName = lastName.charAt(0).toUpperCase()
+    const randomColor = '#' + (Math.random().toString(16) + '000000').slice(2, 8);
+    const result = {
+      firstName: capitalizedFirstName,
+      lastName: capitalizedLastName,
+      backgroundColor: randomColor,
+    };
+    return result;
+  }
+};
+
 // toaster configuration
 export const notificationConfig: ToastOptions = {
   autoClose: 1000,

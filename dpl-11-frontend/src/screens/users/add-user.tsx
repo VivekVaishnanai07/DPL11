@@ -7,43 +7,43 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import TeamsDataService from '../../service/teams.service';
+import UserDataService from '../../service/users.service';
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function AddTeam() {
+export default function AddUser() {
   const navigate = useNavigate();
   const { id }: any = useParams();
-  const [teamData, setTeamData] = useState({
-    full_name: "",
-    short_name: "",
-    icon: ""
+  const [userData, setUserData] = useState({
+    first_name: "",
+    last_name: "",
+    email: ""
   })
 
 
   useEffect(() => {
-    if (id !== "add-team") {
-      TeamsDataService.get(id).then((res) => {
-        const team = res.data[0]
-        setTeamData({
-          full_name: team.full_name,
-          short_name: team.short_name,
-          icon: team.icon
+    if (id !== undefined) {
+      UserDataService.getById(id).then((res) => {
+        const user = res.data[0]
+        setUserData({
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email
         })
       }).catch((error) => console.error(error))
     }
   }, [id])
 
   const handleSubmit = () => {
-    if (id !== "add-team") {
-      TeamsDataService.update(id, teamData).then((res: any) => {
-        navigate('/teams')
+    if (id !== undefined) {
+      UserDataService.update(id, userData).then((res: any) => {
+        navigate('/users')
       }).catch((error) => console.error(error))
     } else {
-      TeamsDataService.create(teamData).then((res: any) => {
-        navigate('/teams')
+      UserDataService.create(userData).then((res: any) => {
+        navigate('/users')
       }).catch((error) => {
         console.error(error)
       })
@@ -68,13 +68,13 @@ export default function AddTeam() {
                 <Grid item xs={12}>
                   <TextField
                     autoComplete="given-name"
-                    name="teamFullName"
+                    name="firstName"
                     required
                     fullWidth
-                    id="teamFullName"
-                    label="Team Full Name"
-                    value={teamData.full_name}
-                    onChange={(e) => setTeamData({ ...teamData, full_name: e.target.value })}
+                    id="firstName"
+                    label="First Name"
+                    value={userData.first_name}
+                    onChange={(e) => setUserData({ ...userData, first_name: e.target.value })}
                     autoFocus
                   />
                 </Grid>
@@ -82,23 +82,23 @@ export default function AddTeam() {
                   <TextField
                     required
                     fullWidth
-                    id="teamShortName"
-                    label="Team Short Name"
-                    name="teamShortName"
-                    autoComplete="teamShortName"
-                    value={teamData.short_name}
-                    onChange={(e) => setTeamData({ ...teamData, short_name: e.target.value })}
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="lastName"
+                    value={userData.last_name}
+                    onChange={(e) => setUserData({ ...userData, last_name: e.target.value })}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     required
                     fullWidth
-                    name="Icon"
-                    label="Icon"
-                    id="icon"
-                    value={teamData.icon}
-                    onChange={(e) => setTeamData({ ...teamData, icon: e.target.value })}
+                    name="email"
+                    label="Email"
+                    id="email"
+                    value={userData.email}
+                    onChange={(e) => setUserData({ ...userData, email: e.target.value })}
                   />
                 </Grid>
                 <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>

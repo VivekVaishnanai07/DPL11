@@ -57,13 +57,11 @@ export default function AddMatch() {
   const handleSubmit = () => {
     if (id !== undefined) {
       let data = { ...matchData, date: dateFormateSql(matchData.date) }
-      console.log(data);
       MatchesDataService.update(id, data).then((res: any) => {
         navigate('/matches')
       }).catch((error) => console.error(error))
     } else {
       let data = { ...matchData, date: dateFormateSql(matchData.date) }
-      console.log(data);
       MatchesDataService.create(data).then((res: any) => {
         navigate('/matches')
       }).catch((error) => {
@@ -228,7 +226,7 @@ export default function AddMatch() {
                   </LocalizationProvider>
                 </Grid>
                 <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
-                  <Button variant="contained" onClick={handleSubmit}>Add</Button>
+                  <Button variant="contained" onClick={handleSubmit}>{id !== undefined ? 'Update' : 'Add'}</Button>
                 </Grid>
               </Grid>
             </Box>
