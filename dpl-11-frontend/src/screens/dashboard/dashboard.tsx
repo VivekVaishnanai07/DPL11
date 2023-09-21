@@ -29,7 +29,7 @@ const Dashboard = () => {
   return (
     <div className="bottom-section-main">
       <div>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, mt: 25, ml: 7, mr: 7 }}>
           <Grid container columns={{ xs: 2, sm: 8, md: 12 }} sx={{ display: "flex", justifyContent: "center" }}>
             {
               todayMatchList.map((match: any, index: number) => (

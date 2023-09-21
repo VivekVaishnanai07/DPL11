@@ -48,7 +48,7 @@ const Users = () => {
           <caption>Users Table</caption>
           <thead>
             <tr>
-              <th scope="col">ID</th>
+              <th scope="col">No.</th>
               <th scope="col">First Name</th>
               <th scope="col">Last Name</th>
               <th scope="col">Email</th>
@@ -56,9 +56,9 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {userList.map((user: any) => (
-              <tr key={user.id}>
-                <td data-label="ID">{user.id}</td>
+            {userList.map((user: any, index: number) => (
+              <tr key={index + 1}>
+                <td data-label="ID">{index + 1}</td>
                 <td data-label="First Name">{user.first_name}</td>
                 <td data-label="Last Name">{user.last_name}</td>
                 <td data-label="Email">{user.email}</td>

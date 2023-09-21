@@ -1,16 +1,20 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import "./prediction.css";
 import { useEffect, useState } from "react";
 import MatchesDataService from "../../service/matches.service";
 import dayjs from "dayjs";
 import { Button } from "@mui/material";
 import PredictionDataService from "../../service/prediction.service";
+import { toast } from "react-toastify";
+import { notificationConfig } from "../../utils/util";
 
 const Prediction = () => {
-  const { id }: any = useParams();
-  const getData: any = localStorage.getItem('isLogin')
+  let navigate = useNavigate();
+  let { id }: any = useParams();
+  let getData: any = localStorage.getItem('isLogin')
   let user = JSON.parse(getData)
-  const user_id = JSON.stringify(user.id)
+  let user_id = JSON.stringify(user.id)
+
   const [predictionId, setPredictionId] = useState('');
   const [matchDetails, setMatchDetails] = useState<any>({});
   const [defaultTeamId, setDefaultTeamId] = useState<any>('');
@@ -39,26 +43,35 @@ const Prediction = () => {
     setSelectedTeam(e.target.value);
   }
 
+  let teamOne = JSON.stringify(matchDetails.team_1_id)
+  let teamTwo = JSON.stringify(matchDetails.team_2_id)
+
   const submitPrediction = () => {
     let prediction_data = {
       "match_id": id,
       "user_id": user_id,
       "team_id": selectedTeam,
     }
+    let teamName = "";
+    if (selectedTeam === teamOne) {
+      teamName = matchDetails.team_1
+    } else {
+      teamName = matchDetails.team_2
+    }
     if (defaultTeamId) {
-      console.log("update", defaultTeamId)
       PredictionDataService.update(selectedTeam, predictionId).then((res) => {
-        console.log(res)
+        toast.success(`Are you selected ${teamName} and result will be declared after the match`, notificationConfig);
+        navigate('/dashboard')
       }).catch((error: any) => console.error(error))
     } else {
-      console.log("create", defaultTeamId)
       PredictionDataService.create(prediction_data).then((res) => {
+        toast.success(`You selected ${teamName} and result will be declared after the match`, notificationConfig);
+        navigate('/dashboard')
         console.log(res)
       }).catch((error: any) => console.error(error))
     }
   }
-  const teamOne = JSON.stringify(matchDetails.team_1_id)
-  const teamTwo = JSON.stringify(matchDetails.team_2_id)
+
   return (
     <div className="bottom-section-main">
       <div className="prediction_container">
@@ -106,7 +119,7 @@ const Prediction = () => {
         </div>
       </div>
       <div className="btn-box">
-        <Button variant="contained" color="success" onClick={submitPrediction}>Submit</Button>
+        <Button variant="contained" color="success" onClick={submitPrediction} disabled={selectedTeam ? false : true}>{defaultTeamId ? 'Update' : 'Submit'}</Button>
       </div>
     </div>
   )

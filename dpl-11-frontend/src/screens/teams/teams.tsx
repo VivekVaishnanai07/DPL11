@@ -48,6 +48,7 @@ const Teams = () => {
           <caption>Teams Table</caption>
           <thead>
             <tr>
+              <th scope="col">No.</th>
               <th scope="col">Logo</th>
               <th scope="col">Full Name</th>
               <th scope="col">Short Name</th>
@@ -55,10 +56,11 @@ const Teams = () => {
             </tr>
           </thead>
           <tbody>
-            {teamList.map((team: any) => (
-              <tr key={team.id}>
+            {teamList.map((team: any, index: number) => (
+              <tr key={index + 1}>
+                <td data-label="No.">{index + 1}</td>
                 <td data-label="Full Name">
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div className="img_box">
                     <img src={team.icon} alt="team_logo" style={{ width: 60 }} />
                   </div>
                 </td>

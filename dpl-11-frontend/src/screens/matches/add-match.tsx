@@ -13,7 +13,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import MatchesDataService from '../../service/matches.service';
 import TeamsDataService from '../../service/teams.service';
-import { dateFormateSql } from '../../utils/util';
+import { dateFormateSql, notificationConfig } from '../../utils/util';
+import { toast } from 'react-toastify';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -24,8 +25,8 @@ export default function AddMatch() {
   const { id }: any = useParams();
   const [teamList, setTeamList] = useState([]);
   const [error, setError] = useState(false);
-  const [matchData, setMatchData] = useState({
-    match_no: 0,
+  const [matchData, setMatchData] = useState<any>({
+    match_no: '0',
     date: localDate,
     team_1: "",
     team_2: "",
@@ -33,6 +34,7 @@ export default function AddMatch() {
     season_year: 2023
   })
 
+  let fieldDisable = !matchData.match_no || !matchData.team_1 || !matchData.team_2 || !matchData.venue;
 
   useEffect(() => {
     if (id !== undefined) {
@@ -55,20 +57,25 @@ export default function AddMatch() {
   }, [id])
 
   const handleSubmit = () => {
-    if (id !== undefined) {
-      let data = { ...matchData, date: dateFormateSql(matchData.date) }
-      MatchesDataService.update(id, data).then((res: any) => {
-        navigate('/matches')
-      }).catch((error) => console.error(error))
+    if (matchData.match_no !== "0") {
+      if (id !== undefined) {
+        let data = { ...matchData, date: dateFormateSql(matchData.date) }
+        MatchesDataService.update(id, data).then((res: any) => {
+          navigate('/matches')
+        }).catch((error) => console.error(error))
+      } else {
+        let data = { ...matchData, date: dateFormateSql(matchData.date) }
+        MatchesDataService.create(data).then((res: any) => {
+          navigate('/matches')
+        }).catch((error) => {
+          console.error(error)
+        })
+      }
     } else {
-      let data = { ...matchData, date: dateFormateSql(matchData.date) }
-      MatchesDataService.create(data).then((res: any) => {
-        navigate('/matches')
-      }).catch((error) => {
-        console.error(error)
-      })
+      toast.error(`0 Match number is default selected please change match number`, notificationConfig);
     }
   };
+
   const handlerChangeDate = (value: any) => {
     const dateFormate = dateFormateSql(value)
 
@@ -226,7 +233,7 @@ export default function AddMatch() {
                   </LocalizationProvider>
                 </Grid>
                 <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
-                  <Button variant="contained" onClick={handleSubmit}>{id !== undefined ? 'Update' : 'Add'}</Button>
+                  <Button variant="contained" onClick={handleSubmit} disabled={fieldDisable}>{id !== undefined ? 'Update' : 'Add'}</Button>
                 </Grid>
               </Grid>
             </Box>

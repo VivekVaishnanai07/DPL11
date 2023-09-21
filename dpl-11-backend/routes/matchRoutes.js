@@ -5,7 +5,7 @@ const router = express.Router();
 
 // get matches list
 router.get("/", (req, res) => {
-  db.query("SELECT m.id,team_1.full_name as team_1,team_1.icon as team_1_icon,team_2.full_name as team_2,team_2.icon as team_2_icon,m.venue,m.date,m.match_no,m.season_year FROM matches m  inner join teams team_1 on team_1.id = m.team_1 inner join teams team_2 on team_2.id = m.team_2 ORDER BY match_no ASC; ", (err, result) => {
+  db.query("SELECT m.id,team_1.full_name as team_1,team_1.icon as team_1_icon,team_2.full_name as team_2,team_2.icon as team_2_icon,m.venue,m.date,m.match_no,m.season_year FROM matches m  inner join teams team_1 on team_1.id = m.team_1 inner join teams team_2 on team_2.id = m.team_2; ", (err, result) => {
     if (err) {
       console.error(err)
     }
@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 //  get one matches
 router.get("/prediction/:id", (req, res) => {
   const id = req.params.id;
-  db.query(`SELECT m.id,team_1.full_name as team_1,team_1.id as team_1_id,team_1.icon as team_1_icon,team_2.full_name as team_2,team_2.id as team_2_id,team_2.icon as team_2_icon,m.venue,m.date,m.match_no,m.season_year FROM matches m inner join teams team_1 on team_1.id = m.team_1 inner join teams team_2 on team_2.id = m.team_2 WHERE m.id =${id} ORDER BY match_no ASC;`, (err, result) => {
+  db.query(`SELECT m.id,team_1.full_name as team_1,team_1.id as team_1_id,team_1.icon as team_1_icon,team_2.full_name as team_2,team_2.id as team_2_id,team_2.icon as team_2_icon,m.venue,m.date,m.match_no,m.season_year FROM matches m inner join teams team_1 on team_1.id = m.team_1 inner join teams team_2 on team_2.id = m.team_2 WHERE m.id =${id};`, (err, result) => {
     if (err) {
       console.error(err)
     }

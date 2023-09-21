@@ -79,6 +79,11 @@ table th {
   height: 64px;
 }
 
+.img_box {
+  display: flex;
+  justify-content: center;
+}
+
 @media screen and (max-width: 600px) {
   .team-container {
     margin-left: 16px !important;
@@ -130,5 +135,9 @@ table th {
 
   table td:last-child {
     border-bottom: 0;
+  }
+
+  .img_box {
+    display: block !important;
   }
 }

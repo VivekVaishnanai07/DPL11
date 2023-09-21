@@ -74,6 +74,7 @@ const Match = () => {
         <table>
           <thead>
             <tr>
+              <th scope="col">No.</th>
               <th scope="col">Match No.</th>
               <th scope="col">Team 1</th>
               <th scope="col">Team 2</th>
@@ -84,8 +85,9 @@ const Match = () => {
             </tr>
           </thead>
           <tbody>
-            {filterMatchList.map((match: any) => (
-              <tr key={match.id}>
+            {filterMatchList.map((match: any, index: number) => (
+              <tr key={index + 1}>
+                <td data-label="No.">{index + 1}</td>
                 <td data-label="Match No.">{match.match_no}</td>
                 <td data-label="Team 1">{match.team_1}</td>
                 <td data-label="Team 2">{match.team_2}</td>

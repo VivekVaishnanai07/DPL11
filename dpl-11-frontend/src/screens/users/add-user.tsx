@@ -22,6 +22,7 @@ export default function AddUser() {
     email: ""
   })
 
+  let fieldDisable = !userData.first_name || !userData.last_name || !userData.email;
 
   useEffect(() => {
     if (id !== undefined) {
@@ -102,7 +103,7 @@ export default function AddUser() {
                   />
                 </Grid>
                 <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
-                  <Button variant="contained" onClick={handleSubmit}>{id !== undefined ? 'Update' : 'Add'}</Button>
+                  <Button variant="contained" onClick={handleSubmit} disabled={fieldDisable}>{id !== undefined ? 'Update' : 'Add'}</Button>
                 </Grid>
               </Grid>
             </Box>
