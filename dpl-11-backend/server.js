@@ -4,6 +4,7 @@ const cors = require('cors')
 const userRoutes = require('./routes/userRoutes');
 const teamRoutes = require('./routes/teamRoutes');
 const matchRoutes = require('./routes/matchRoutes');
+const predictionRoutes = require('./routes/predictionRoutes');
 
 const app = express();
 
@@ -17,6 +18,8 @@ app.use("/api/user", userRoutes);
 app.use("/api/team", teamRoutes)
 
 app.use("/api/match", matchRoutes)
+
+app.use("/api/prediction", predictionRoutes)
 
 
 app.listen(PORT, () => {
