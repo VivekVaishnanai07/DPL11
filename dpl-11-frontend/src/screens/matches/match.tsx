@@ -54,9 +54,10 @@ const Match = () => {
   };
 
   const handlerFilterList = (e: any) => {
-    const filterList = matchList.filter((item: any) => item.season_year === e.target.value);
+    MatchesDataService.filterSeasonYear(e.target.value).then((res) => {
+      setFilterMatchList(res.data);
+    }).catch((error) => console.error(error))
     setFilterValue(e.target.value)
-    setFilterMatchList(filterList)
   }
 
   return (

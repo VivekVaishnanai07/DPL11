@@ -13,6 +13,10 @@ const MatchesDataService = {
     return http.get(`/match/${id}`);
   },
 
+  filterSeasonYear(year: any) {
+    return http.get(`/match/filter/${year}`)
+  },
+
   create(data: any) {
     return http.post("/match/add-match", data);
   },

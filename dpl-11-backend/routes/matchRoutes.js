@@ -38,6 +38,17 @@ router.get("/:id", (req, res) => {
   );
 });
 
+// filter match season year
+router.get("/filter/:year", (req, res) => {
+  const season_year = req.params.year;
+  db.query(`SELECT * FROM matches WHERE season_year = ${season_year}`, (err, result) => {
+    if (err) {
+      console.error(err)
+    }
+    res.send(result)
+  })
+})
+
 // creating new matches
 router.post('/add-match', (req, res) => {
   const updateData = req.body;
