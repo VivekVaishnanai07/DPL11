@@ -10,10 +10,11 @@ import './match.css';
 
 const Match = () => {
   const navigate = useNavigate();
-  const [filterValue, setFilterValue] = useState('');
+  const [filterValue, setFilterValue] = useState('2023');
   const [matchList, setMatchList] = useState([]);
   const [filterMatchList, setFilterMatchList] = useState([]);
   const [open, setOpen] = useState(false);
+  const [emptyMessageBanner, setEmptyMessageBanner] = useState(false);
   const [matchId, setMatchId] = useState<number>(0);
 
 
@@ -23,9 +24,15 @@ const Match = () => {
 
   const getMatchList = () => {
     MatchesDataService.getAll().then((response) => {
+      if (!response.data && response.data.length === 0) {
+        setEmptyMessageBanner(true);
+      } else {
+        setEmptyMessageBanner(false)
+      }
       setMatchList(response.data)
       setFilterMatchList(response.data)
     }).catch((error) => {
+      setEmptyMessageBanner(true)
       console.error(error)
     })
   }
@@ -108,7 +115,7 @@ const Match = () => {
                 </td>
               </tr>
             ))}
-            {(!filterMatchList || filterMatchList.length === 0) && (
+            {emptyMessageBanner && (
               <td colSpan={8}>
                 <div id="main">
                   <div className="fof">

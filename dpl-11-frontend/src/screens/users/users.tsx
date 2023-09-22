@@ -1,14 +1,15 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import ConfirmDialog from '../../components/dialog-box/dialog-box';
-import EditIcon from '../../assets/icon/edit';
 import DeleteIcon from "../../assets/icon/delete";
+import EditIcon from '../../assets/icon/edit';
+import ConfirmDialog from '../../components/dialog-box/dialog-box';
 import UserDataService from "../../service/users.service";
 import "./users.css";
 
 const Users = () => {
   const navigate = useNavigate();
+  const [emptyMessageBanner, setEmptyMessageBanner] = useState(false);
   const [userList, setUserList] = useState([]);
   const [open, setOpen] = useState(false);
   const [userId, setUserId] = useState<number>(0);
@@ -19,8 +20,14 @@ const Users = () => {
 
   const getUsersList = () => {
     UserDataService.getAll().then((response) => {
+      if (!response.data && response.data.length === 0) {
+        setEmptyMessageBanner(true);
+      } else {
+        setEmptyMessageBanner(false)
+      }
       setUserList(response.data)
     }).catch((error) => {
+      setEmptyMessageBanner(true)
       console.error(error)
     })
   }
@@ -76,7 +83,7 @@ const Users = () => {
                 </td>
               </tr>
             ))}
-            {(!userList || userList.length === 0) && (
+            {emptyMessageBanner && (
               <td colSpan={5}>
                 <div id="main">
                   <div className="fof">

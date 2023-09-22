@@ -1,14 +1,15 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import ConfirmDialog from '../../components/dialog-box/dialog-box';
-import "./teams.css";
-import EditIcon from '../../assets/icon/edit';
 import DeleteIcon from "../../assets/icon/delete";
+import EditIcon from '../../assets/icon/edit';
+import ConfirmDialog from '../../components/dialog-box/dialog-box';
 import TeamsDataService from "../../service/teams.service";
+import "./teams.css";
 
 const Teams = () => {
   const navigate = useNavigate();
+  const [emptyMessageBanner, setEmptyMessageBanner] = useState(false);
   const [teamList, setTeamList] = useState([]);
   const [open, setOpen] = useState(false);
   const [teamId, setTeamId] = useState<number>(0);
@@ -19,8 +20,14 @@ const Teams = () => {
 
   const getTeamsList = () => {
     TeamsDataService.getAll().then((response) => {
+      if (!response.data && response.data.length === 0) {
+        setEmptyMessageBanner(true);
+      } else {
+        setEmptyMessageBanner(false)
+      }
       setTeamList(response.data)
     }).catch((error) => {
+      setEmptyMessageBanner(true);
       console.error(error)
     })
   }
@@ -80,7 +87,7 @@ const Teams = () => {
                 </td>
               </tr>
             ))}
-            {(!teamList || teamList.length === 0) && (
+            {emptyMessageBanner && (
               <td colSpan={5}>
                 <div id="main">
                   <div className="fof">

@@ -5,6 +5,7 @@ import './App.css';
 import './assets/css/common.css';
 import AuthRoutes from './routes/auth-routes';
 import UnAuthRoutes from './routes/unAuth-routes';
+import GlobalLoader from './components/loader/global-loader';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         {AuthRoutes}
         {UnAuthRoutes}
       </Routes>
+      <GlobalLoader />
     </BrowserRouter>
   );
 }

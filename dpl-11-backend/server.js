@@ -5,7 +5,7 @@ const userRoutes = require('./routes/userRoutes');
 const teamRoutes = require('./routes/teamRoutes');
 const matchRoutes = require('./routes/matchRoutes');
 const predictionRoutes = require('./routes/predictionRoutes');
-const stacksRoute = require('./routes/stacksRoute');
+const statusRoute = require('./routes/statusRoute');
 
 const app = express();
 
@@ -22,7 +22,7 @@ app.use("/api/match", matchRoutes)
 
 app.use("/api/prediction", predictionRoutes)
 
-app.use("/api/stacks", stacksRoute)
+app.use("/api/status", statusRoute)
 
 
 app.listen(PORT, () => {
