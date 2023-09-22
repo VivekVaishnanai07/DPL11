@@ -1,12 +1,12 @@
 import { Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import ConfirmDialog from '../../components/dialog-box/dialog-box';
-import EditIcon from '../../assets/icon/edit';
 import DeleteIcon from "../../assets/icon/delete";
-import './match.css';
+import EditIcon from '../../assets/icon/edit';
+import ConfirmDialog from '../../components/dialog-box/dialog-box';
 import MatchesDataService from "../../service/matches.service";
-import dayjs from "dayjs";
+import './match.css';
 
 const Match = () => {
   const navigate = useNavigate();
@@ -108,6 +108,15 @@ const Match = () => {
                 </td>
               </tr>
             ))}
+            {(!filterMatchList || filterMatchList.length === 0) && (
+              <td colSpan={8}>
+                <div id="main">
+                  <div className="fof">
+                    <h1>Data Not Found</h1>
+                  </div>
+                </div>
+              </td>
+            )}
           </tbody>
         </table>
       </div>

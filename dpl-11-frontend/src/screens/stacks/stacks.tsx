@@ -51,6 +51,15 @@ const Stacks = () => {
                 <td id="table_row" data-label="Predict Team">{stack.predict_team}</td>
               </tr>
             ))}
+            {(!stacksList || stacksList.length === 0) && (
+              <td colSpan={8}>
+                <div id="main">
+                  <div className="fof">
+                    <h1>Data Not Found</h1>
+                  </div>
+                </div>
+              </td>
+            )}
           </tbody>
         </table>
       </div>

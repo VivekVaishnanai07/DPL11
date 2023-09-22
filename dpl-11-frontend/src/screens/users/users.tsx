@@ -76,6 +76,15 @@ const Users = () => {
                 </td>
               </tr>
             ))}
+            {(!userList || userList.length === 0) && (
+              <td colSpan={5}>
+                <div id="main">
+                  <div className="fof">
+                    <h1>Data Not Found</h1>
+                  </div>
+                </div>
+              </td>
+            )}
           </tbody>
         </table>
       </div>
