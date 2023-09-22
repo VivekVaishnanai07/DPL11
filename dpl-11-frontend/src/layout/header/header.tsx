@@ -120,6 +120,12 @@ function Header() {
               </MenuItem>
               <MenuItem>
                 <Typography textAlign="center" onClick={() => {
+                  navigate("/stacks");
+                  handleCloseNavMenu();
+                }}>Stacks</Typography>
+              </MenuItem>
+              <MenuItem>
+                <Typography textAlign="center" onClick={() => {
                   navigate("/about");
                   handleCloseNavMenu();
                 }}>About</Typography>
@@ -161,6 +167,14 @@ function Header() {
               }
             >
               Users
+            </NavLink>
+            <NavLink
+              to="/stacks"
+              className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "header-title active" : "header-title"
+              }
+            >
+              Stacks
             </NavLink>
             <NavLink
               to="/about"

@@ -9,6 +9,7 @@ import Teams from "../screens/teams/teams";
 import Users from "../screens/users/users";
 import AddUser from "../screens/users/add-user";
 import Prediction from "../screens/prediction/prediction";
+import Stacks from "../screens/stacks/stacks";
 
 const AuthRoutes = [
     <Route key="Dashboard" path="/dashboard" element={<AuthGuard component={<Dashboard />} />} />,
@@ -22,6 +23,7 @@ const AuthRoutes = [
     <Route key="Users" path="/users" element={<AuthGuard component={<Users />} />} />,
     <Route key="AddUser" path="/user/add-user" element={<AuthGuard component={<AddUser />} />} />,
     <Route key="EditUser" path="/user/:id" element={<AuthGuard component={<AddUser />} />} />,
+    <Route key="Stacks" path="/stacks" element={<AuthGuard component={<Stacks />} />} />,
     <Route key="About" path="/about" element={<AuthGuard component={<About />} />} />,
 ]
 
