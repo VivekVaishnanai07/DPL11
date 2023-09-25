@@ -7,15 +7,18 @@ import EditIcon from '../../assets/icon/edit';
 import ConfirmDialog from '../../components/dialog-box/dialog-box';
 import MatchesDataService from "../../service/matches.service";
 import './match.css';
+import Trophy from "../../assets/icon/trophy";
+import WinnerConfirmDialog from "../../components/dialog-box/winner-dialog";
 
 const Match = () => {
   const navigate = useNavigate();
   const [filterValue, setFilterValue] = useState('2023');
-  const [matchList, setMatchList] = useState([]);
   const [filterMatchList, setFilterMatchList] = useState([]);
   const [open, setOpen] = useState(false);
+  const [winnerTeamSelectDialog, setWinnerTeamSelectDialog] = useState(false);
   const [emptyMessageBanner, setEmptyMessageBanner] = useState(false);
   const [matchId, setMatchId] = useState<number>(0);
+  const [matchDetails, setMatchDetails] = useState();
 
 
   useEffect(() => {
@@ -29,7 +32,6 @@ const Match = () => {
       } else {
         setEmptyMessageBanner(false)
       }
-      setMatchList(response.data)
       setFilterMatchList(response.data)
     }).catch((error) => {
       setEmptyMessageBanner(true)
@@ -50,8 +52,13 @@ const Match = () => {
 
   const handleClickOpen = (id: number) => {
     setOpen(true);
-    setMatchId(id)
+    setMatchId(id);
   };
+
+  const handlerSelectWinnerTeam = (match: any) => {
+    setWinnerTeamSelectDialog(true);
+    setMatchDetails(match);
+  }
 
   const handlerFilterList = (e: any) => {
     MatchesDataService.filterSeasonYear(e.target.value).then((res) => {
@@ -101,14 +108,19 @@ const Match = () => {
                 <td data-label="Team 2">{match.team_2}</td>
                 <td data-label="Venue">{match.venue}</td>
                 <td data-label="Date">{dayjs(match.date).format('DD/MM/YYYY')}</td>
-                <td data-label="Date">{dayjs(match.date).format('h:mm A')}</td>
+                <td data-label="Time">{dayjs(match.date).format('h:mm A')}</td>
                 <td className='buttons'>
-                  <div id='edit' data-label="">
+                  <div id='match_edit' data-label="Buttons">
                     <Button onClick={() => handlerEditMatch(match.id)}>
                       <EditIcon />
                     </Button>
                   </div>
-                  <div id='delete' data-label="">
+                  <div id='winner_trophy' data-label="">
+                    <Button onClick={() => handlerSelectWinnerTeam(match)}>
+                      <Trophy />
+                    </Button>
+                  </div>
+                  <div id='match_delete' data-label="">
                     <Button onClick={() => handleClickOpen(match.id)}>
                       <DeleteIcon />
                     </Button>
@@ -128,6 +140,7 @@ const Match = () => {
           </tbody>
         </table>
       </div>
+      {matchDetails && <WinnerConfirmDialog match={matchDetails} open={winnerTeamSelectDialog} setOpen={setWinnerTeamSelectDialog} />}
       <ConfirmDialog id={matchId} open={open} setOpen={setOpen} handlerDeleteMatch={handlerDeleteMatch} />
     </div>
   )

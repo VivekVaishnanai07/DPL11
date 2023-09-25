@@ -25,6 +25,10 @@ const MatchesDataService = {
     return http.put(`/match/${id}`, data);
   },
 
+  addWinnerTeam(id: number, winner_team: any) {
+    return http.put(`/match/winner-team/${id}/${winner_team}`)
+  },
+
   delete(id: number) {
     return http.delete(`/match/${id}`);
   }

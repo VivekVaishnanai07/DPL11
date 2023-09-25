@@ -43,6 +43,7 @@ const Status = () => {
               <th id="table_row" scope="col">Date</th>
               <th id="table_row" scope="col">Time</th>
               <th id="table_row" scope="col">Predict Team</th>
+              <th id="table_row" scope="col">Won Team</th>
             </tr>
           </thead>
           <tbody>
@@ -56,6 +57,7 @@ const Status = () => {
                 <td id="table_row" data-label="Date">{dayjs(stack.date).format('DD/MM/YYYY')}</td>
                 <td id="table_row" data-label="Time">{dayjs(stack.date).format('h:mm A')}</td>
                 <td id="table_row" data-label="Predict Team">{stack.predict_team}</td>
+                <td id="table_row" data-label="Won Team">{stack.winner_team}</td>
               </tr>
             ))}
             {emptyMessageBanner && (
